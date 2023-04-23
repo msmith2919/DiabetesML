@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Diabetes Prediction Result</title>
+</head>
+<body>
+    <h1>Diabetes Prediction Result</h1>
+    <p>{{ result }}</p>
+    <form action="/" method="get">
+        <button type="submit">Return to Prediction</button>
+    </form>
+</body>
+</html>
+

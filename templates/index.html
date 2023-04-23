@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Diabetes Predictor</title>
+    <style>
+        label {
+            display: inline-block;
+            width: 100px;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        input[type="number"] {
+            width: 60px;
+        }
+
+        input[type="submit"] {
+            margin-left: 110px;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.8rem;
+            margin-left: 105px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Diabetes Predictor</h1>
+    <h3>About the Algorithm</h3>
+    <p>The model used in this code is a logistic regression model, which is a type of machine learning algorithm that can predict whether a person has diabetes based on their glucose levels. The model was trained on a dataset of glucose levels and corresponding diabetes outcomes, where glucose was used as the input feature to predict the diabetes outcome. When a user submits their glucose levels through the form below, the model takes those values, makes a prediction on whether the user has diabetes, and returns the prediction with a confidence score. The model is based on a well-established statistical approach, and it has been shown to be effective in predicting diabetes outcomes in many studies.
+    </p>
+    <h3>Using the Application</h3>
+    <p>This application takes the patient's 4 most recent glucose levels (in mg/dL) to make a prediction. To use the predictor, enter your four most recent glucose values and click the "predict" button to get your prediction.</p>
+    <br><em>This web app is not intended to be used as medical advice. Please consult your doctor if you are concerned about health conditions such as diabetes.</em>
+
+    <form id="prediction-form" action="/result" method="POST">
+        <label for="glucose1">Glucose 1:</label>
+        <input type="number" id="glucose1" name="glucose1" min="40" max="400" required>
+        <br>
+        <label for="glucose2">Glucose 2:</label>
+        <input type="number" id="glucose2" name="glucose2" min="40" max="400" required>
+        <br>
+        <label for="glucose3">Glucose 3:</label>
+        <input type="number" id="glucose3" name="glucose3" min="40" max="400" required>
+        <br>
+        <label for="glucose4">Glucose 4:</label>
+        <input type="number" id="glucose4" name="glucose4" min="40" max="400" required>
+        <br>
+        <span id="glucose-error" class="error"></span>
+        <br>
+        <input type="submit" value="Predict">
+    </form>
+    <script>
+        const form = document.getElementById('prediction-form');
+        const glucose1 = document.getElementById('glucose1');
+        const glucose2 = document.getElementById('glucose2');
+        const glucose3 = document.getElementById('glucose3');
+        const glucose4 = document.getElementById('glucose4');
+        const glucoseError = document.getElementById('glucose-error');
+
+        form.addEventListener('submit', (event) => {
+            let isValid = true;
+            if (glucose1.value < 0 || glucose1.value > 400) {
+                isValid = false;
+                glucoseError.textContent = 'Glucose 1 must be between 40 and 400 mg/dL';
+            }
+            if (glucose2.value < 0 || glucose2.value > 400) {
+                isValid = false;
+                glucoseError.textContent = 'Glucose 2 must be between 40 and 400 mg/dL';
+            }
+            if (glucose3.value < 0 || glucose3.value > 400) {
+                isValid = false;
+                glucoseError.textContent = 'Glucose 3 must be between 40 and 400 mg/dL';
+            }
+            if (glucose4.value < 0 || glucose4.value > 400) {
+                isValid = false;
+                glucoseError.textContent = 'Glucose 4 must be between 40 and 400 mg/dL';
+            }
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
